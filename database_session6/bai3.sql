@@ -1,0 +1,50 @@
+CREATE TABLE bookings (
+    booking_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    status VARCHAR(20), 
+    created_at DATE
+);
+INSERT INTO bookings (user_id, status, created_at) VALUE
+(1, 'COMPLETED', '2024-01-01'),
+(1, 'CANCELLED', '2024-01-02'),
+(1, 'CANCELLED', '2024-01-03'),
+(1, 'CANCELLED', '2024-01-04'),
+(1, 'CANCELLED', '2024-01-05'),
+(1, 'CANCELLED', '2024-01-06'),
+(1, 'CANCELLED', '2024-01-07'),
+(1, 'COMPLETED', '2024-01-08'),
+(1, 'PENDING',   '2024-01-09'),
+(1, 'COMPLETED', '2024-01-10'),
+
+(2, 'COMPLETED', '2024-01-01'),
+(2, 'CANCELLED', '2024-01-02'),
+(2, 'CANCELLED', '2024-01-03'),
+(2, 'CANCELLED', '2024-01-04'),
+(2, 'COMPLETED', '2024-01-05'),
+(2, 'PENDING',   '2024-01-06'),
+(2, 'COMPLETED', '2024-01-07'),
+(2, 'COMPLETED', '2024-01-08'),
+(2, 'COMPLETED', '2024-01-09'),
+(2, 'COMPLETED', '2024-01-10'),
+
+(3, 'CANCELLED', '2024-01-01'),
+(3, 'CANCELLED', '2024-01-02'),
+(3, 'CANCELLED', '2024-01-03'),
+(3, 'CANCELLED', '2024-01-04'),
+(3, 'CANCELLED', '2024-01-05'),
+
+(4, 'CANCELLED', '2024-01-01'),
+(4, 'CANCELLED', '2024-01-02'),
+(4, 'CANCELLED', '2024-01-03'),
+(4, 'CANCELLED', '2024-01-04'),
+(4, 'CANCELLED', '2024-01-05'),
+(4, 'CANCELLED', '2024-01-06'),
+(4, 'COMPLETED', '2024-01-07'),
+(4, 'COMPLETED', '2024-01-08'),
+(4, 'COMPLETED', '2024-01-09'),
+(4, 'PENDING',   '2024-01-10');
+
+SELECT user_id, COUNT(*) total_order, SUM(CASE WHEN status = 'CANCELLED' THEN 1 ELSE 0 END) cancelled_order
+FROM bookings
+GROUP BY user_id
+HAVING COUNT(*) >= 10 AND SUM(CASE WHEN status = 'CANCELLED' THEN 1 ELSE 0 END) > 5;
